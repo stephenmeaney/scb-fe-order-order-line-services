@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.stephenmeaney.services.orderlineitem.data.entity.OrderLineItem;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -27,6 +28,9 @@ public class Order {
     private long accountId;
 
     private long addressId;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderLineItem> orderLineItemList;
 
     // ??? add getters with @JsonIgnore that hit feign client endpoints
     // using this class's 'foreign key' ids so that the projection can be populated ???

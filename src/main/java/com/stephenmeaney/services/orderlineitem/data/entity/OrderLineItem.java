@@ -25,8 +25,9 @@ public class OrderLineItem {
 
     private long productId;
 
+    private long shipmentId;
+
     // getters with endpoints if needed
-    //private Shipment shipment;
 
     public long getOrderLineItemId() {
         return orderLineItemId;
