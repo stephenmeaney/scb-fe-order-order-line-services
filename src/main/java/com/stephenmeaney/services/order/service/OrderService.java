@@ -1,6 +1,6 @@
 package com.stephenmeaney.services.order.service;
 
-import com.stephenmeaney.services.order.data.entity.Order;
+import com.stephenmeaney.services.order.data.entity.CustomerOrder;
 import com.stephenmeaney.services.order.data.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,22 +17,22 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public Order getById(long id) {
+    public CustomerOrder getById(long id) {
         return orderRepository.findById(id);
     }
 
-    public List<Order> getAll() {
+    public List<CustomerOrder> getAll() {
         return orderRepository.findAll();
     }
 
-    public Order insert(Order order) {
-        return orderRepository.save(order);
+    public CustomerOrder insert(CustomerOrder customerOrder) {
+        return orderRepository.save(customerOrder);
     }
 
-    public Order update(long id, Order newOrder) {
+    public CustomerOrder update(long id, CustomerOrder newCustomerOrder) {
         // would normally check contract for "id not found" behavior and how to handle incomplete entity
-        newOrder.setOrderId(id);
-        return orderRepository.save(newOrder);
+        newCustomerOrder.setOrderId(id);
+        return orderRepository.save(newCustomerOrder);
     }
 
     public void delete(long id) {

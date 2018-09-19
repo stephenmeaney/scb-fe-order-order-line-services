@@ -11,8 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "`order`")
-public class Order {
+public class CustomerOrder {
 
     @Id
     @GeneratedValue

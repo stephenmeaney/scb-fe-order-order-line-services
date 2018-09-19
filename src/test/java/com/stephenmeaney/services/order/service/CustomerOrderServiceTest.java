@@ -4,7 +4,7 @@ import org.junit.Before;
 
 import static org.junit.Assert.*;
 
-public class OrderServiceTest {
+public class CustomerOrderServiceTest {
 
     @Before
     public void setUp() throws Exception {

@@ -1,6 +1,6 @@
 package com.stephenmeaney.services.orderlineitem.data.entity;
 
-import com.stephenmeaney.services.order.data.entity.Order;
+import com.stephenmeaney.services.order.data.entity.CustomerOrder;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
@@ -21,7 +21,7 @@ public class OrderLineItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
-    private Order order;
+    private CustomerOrder customerOrder;
 
     private long productId;
 
@@ -61,12 +61,12 @@ public class OrderLineItem {
         this.totalPrice = totalPrice;
     }
 
-    public Order getOrder() {
-        return order;
+    public CustomerOrder getCustomerOrder() {
+        return customerOrder;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setCustomerOrder(CustomerOrder customerOrder) {
+        this.customerOrder = customerOrder;
     }
 
     public long getProductId() {

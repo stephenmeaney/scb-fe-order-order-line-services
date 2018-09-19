@@ -1,6 +1,6 @@
 package com.stephenmeaney.services.order.api;
 
-import com.stephenmeaney.services.order.data.entity.Order;
+import com.stephenmeaney.services.order.data.entity.CustomerOrder;
 import com.stephenmeaney.services.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,27 +21,27 @@ public class OrderController {
     }
 
     @GetMapping("")
-    public List<Order> getAll() {
+    public List<CustomerOrder> getAll() {
         return orderService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Order getById(@PathVariable long id) {
+    public CustomerOrder getById(@PathVariable long id) {
         return orderService.getById(id);
     }
 
     @PostMapping("")
-    public ResponseEntity<Order> insert(@RequestBody Order order) {
-        return new ResponseEntity<>(orderService.insert(order), HttpStatus.CREATED);
+    public ResponseEntity<CustomerOrder> insert(@RequestBody CustomerOrder customerOrder) {
+        return new ResponseEntity<>(orderService.insert(customerOrder), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public Order update(@PathVariable long id, @RequestBody Order order) {
-        return orderService.update(id, order);
+    public CustomerOrder update(@PathVariable long id, @RequestBody CustomerOrder customerOrder) {
+        return orderService.update(id, customerOrder);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Order> delete(@PathVariable long id) {
+    public ResponseEntity<CustomerOrder> delete(@PathVariable long id) {
         orderService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <customerOrder order_number="n1" order_date="2018-01-01T01:01:01" account_id="1" address_id="1" />
+    <customerOrder order_number="n2" order_date="2018-01-02T01:01:01" account_id="2" address_id="2" />
+    <customerOrder order_number="n3" order_date="2018-01-03T01:01:01" account_id="3" address_id="3" />
+    <customerOrder order_number="n4" order_date="2018-01-04T01:01:01" account_id="4" address_id="4" />
+
+</dataset>
