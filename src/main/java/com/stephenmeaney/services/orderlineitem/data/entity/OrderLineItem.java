@@ -27,7 +27,6 @@ public class OrderLineItem {
 
     private long shipmentId;
 
-    // getters with endpoints if needed
 
     public long getOrderLineItemId() {
         return orderLineItemId;
@@ -75,5 +74,13 @@ public class OrderLineItem {
 
     public void setProductId(long productId) {
         this.productId = productId;
+    }
+
+    public long getShipmentId() {
+        return shipmentId;
+    }
+
+    public void setShipmentId(long shipmentId) {
+        this.shipmentId = shipmentId;
     }
 }

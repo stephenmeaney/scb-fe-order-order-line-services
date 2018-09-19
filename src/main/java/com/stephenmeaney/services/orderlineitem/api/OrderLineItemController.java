@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/orderlineitems")
+@RequestMapping("/api/v1/orders")
 public class OrderLineItemController {
 
     private OrderLineItemService orderLineItemService;
@@ -20,30 +20,33 @@ public class OrderLineItemController {
         this.orderLineItemService = orderLineItemService;
     }
 
-    @GetMapping("")
-    public List<OrderLineItem> getAll() {
-        return orderLineItemService.getAll();
+    @GetMapping("/{orderId}/lines")
+    public ResponseEntity<List<OrderLineItem>> getAll(@PathVariable long orderId) {
+
+        return orderLineItemService.getAll(orderId);
     }
 
-    @GetMapping("/{id}")
-    public OrderLineItem getById(@PathVariable long id) {
-        return orderLineItemService.getById(id);
+    @GetMapping("/{orderId}/lines/{orderLineItemId}")
+    public ResponseEntity<OrderLineItem> getById(@PathVariable long orderLineItemId, @PathVariable long orderId) {
+
+        return orderLineItemService.getById(orderLineItemId, orderId);
     }
 
-    @PostMapping("")
-    public ResponseEntity<OrderLineItem> insert(@RequestBody OrderLineItem orderLineItem) {
-        return new ResponseEntity<>(orderLineItemService.insert(orderLineItem), HttpStatus.CREATED);
+    @PostMapping("/{orderId}/lines")
+    public ResponseEntity<OrderLineItem> insert(@RequestBody OrderLineItem orderLineItem, @PathVariable long orderId) {
+
+        return orderLineItemService.insert(orderLineItem, orderId);
     }
 
-    @PutMapping("/{id}")
-    public OrderLineItem update(@PathVariable long id, @RequestBody OrderLineItem orderLineItem) {
-        return orderLineItemService.update(id, orderLineItem);
+    @PutMapping("/{orderId}/lines/{orderLineItemId}")
+    public ResponseEntity<OrderLineItem> update(@RequestBody OrderLineItem orderLineItem, @PathVariable long orderLineItemId, @PathVariable long orderId) {
+
+        return orderLineItemService.update(orderLineItem, orderLineItemId, orderId);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<OrderLineItem> delete(@PathVariable long id) {
-        orderLineItemService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+    @DeleteMapping("/{orderId}/lines/{orderLineItemId}")
+    public ResponseEntity<OrderLineItem> delete(@PathVariable long orderLineItemId, @PathVariable long orderId) {
 
+        return orderLineItemService.delete(orderLineItemId, orderId);
+    }
 }
