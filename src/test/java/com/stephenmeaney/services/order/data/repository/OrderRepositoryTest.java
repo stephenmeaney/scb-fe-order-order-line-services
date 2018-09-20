@@ -38,13 +38,11 @@ public class OrderRepositoryTest {
 
         assertThat(orderList.get(0).getOrderId()).isEqualTo(1);
         assertThat(orderList.get(0).getOrderDate()).isEqualTo(LocalDate.parse("2018-01-01"));
-        assertThat(orderList.get(0).getDeliveryDate()).isEqualTo(LocalDate.parse("2018-02-01"));
         assertThat(orderList.get(0).getAccountId()).isEqualTo(1);
         assertThat(orderList.get(0).getAddressId()).isEqualTo(1);
 
         assertThat(orderList.get(1).getOrderId()).isEqualTo(2);
         assertThat(orderList.get(1).getOrderDate()).isEqualTo(LocalDate.parse("2018-01-02"));
-        assertThat(orderList.get(1).getDeliveryDate()).isEqualTo(LocalDate.parse("2018-02-02"));
         assertThat(orderList.get(1).getAccountId()).isEqualTo(2);
         assertThat(orderList.get(1).getAddressId()).isEqualTo(2);
     }
@@ -55,7 +53,6 @@ public class OrderRepositoryTest {
 
         assertThat(order.getOrderId()).isEqualTo(1);
         assertThat(order.getOrderDate()).isEqualTo(LocalDate.parse("2018-01-01"));
-        assertThat(order.getDeliveryDate()).isEqualTo(LocalDate.parse("2018-02-01"));
         assertThat(order.getAccountId()).isEqualTo(1);
         assertThat(order.getAddressId()).isEqualTo(1);
     }

@@ -1,7 +1,12 @@
 package com.stephenmeaney.services.orderlineitem.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.stephenmeaney.services.order.data.entity.CustomerOrder;
+import com.stephenmeaney.services.orderlineitem.client.domain.Product;
+import com.stephenmeaney.services.orderlineitem.service.OrderLineItemService;
 import org.hibernate.annotations.Formula;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
@@ -21,7 +26,11 @@ public class OrderLineItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
+    @JsonIgnoreProperties(value = {"orderLineItemList"})
     private CustomerOrder customerOrder;
+
+    @Transient
+    private Product product;
 
     private long productId;
 
@@ -52,6 +61,7 @@ public class OrderLineItem {
         this.price = price;
     }
 
+    @JsonIgnore
     public double getTotalPrice() {
         return totalPrice;
     }
@@ -66,6 +76,14 @@ public class OrderLineItem {
 
     public void setCustomerOrder(CustomerOrder customerOrder) {
         this.customerOrder = customerOrder;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public long getProductId() {

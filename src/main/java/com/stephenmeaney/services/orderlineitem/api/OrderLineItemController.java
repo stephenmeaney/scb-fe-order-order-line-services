@@ -1,5 +1,6 @@
 package com.stephenmeaney.services.orderlineitem.api;
 
+import com.stephenmeaney.services.orderlineitem.client.domain.Product;
 import com.stephenmeaney.services.orderlineitem.data.entity.OrderLineItem;
 import com.stephenmeaney.services.orderlineitem.service.OrderLineItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,10 @@ public class OrderLineItemController {
     public ResponseEntity<OrderLineItem> delete(@PathVariable long orderLineItemId, @PathVariable long orderId) {
 
         return orderLineItemService.delete(orderLineItemId, orderId);
+    }
+
+    @GetMapping("/{orderId}/lines/{orderLineItemId}/products")
+    public Product getProduct(@PathVariable long orderLineItemId, @PathVariable long orderId) {
+        return orderLineItemService.getProductFromOrderLineItem(orderLineItemId, orderId);
     }
 }

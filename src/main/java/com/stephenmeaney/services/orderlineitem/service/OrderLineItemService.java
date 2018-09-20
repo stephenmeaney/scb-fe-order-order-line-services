@@ -1,6 +1,9 @@
 package com.stephenmeaney.services.orderlineitem.service;
 
+import com.stephenmeaney.services.order.data.entity.CustomerOrder;
 import com.stephenmeaney.services.order.data.repository.OrderRepository;
+import com.stephenmeaney.services.orderlineitem.client.ProductClient;
+import com.stephenmeaney.services.orderlineitem.client.domain.Product;
 import com.stephenmeaney.services.orderlineitem.data.entity.OrderLineItem;
 import com.stephenmeaney.services.orderlineitem.data.repository.OrderLineItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +18,13 @@ public class OrderLineItemService {
 
     private OrderLineItemRepository orderLineItemRepository;
     private OrderRepository orderRepository;
+    private ProductClient productClient;
 
     @Autowired
-    public OrderLineItemService(OrderLineItemRepository orderLineItemRepository, OrderRepository orderRepository) {
+    public OrderLineItemService(OrderLineItemRepository orderLineItemRepository, OrderRepository orderRepository, ProductClient productClient) {
         this.orderLineItemRepository = orderLineItemRepository;
         this.orderRepository = orderRepository;
+        this.productClient = productClient;
     }
 
     public ResponseEntity<List<OrderLineItem>> getAll(long orderId) {
@@ -39,7 +44,9 @@ public class OrderLineItemService {
     }
 
     public ResponseEntity<OrderLineItem> insert(OrderLineItem orderLineItem, long orderId) {
-        if (orderRepository.findById(orderId) != null) {
+        CustomerOrder order = orderRepository.findById(orderId);
+        if (order != null) {
+            orderLineItem.setCustomerOrder(order);
             return new ResponseEntity<>(orderLineItemRepository.save(orderLineItem), HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -63,6 +70,11 @@ public class OrderLineItemService {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    public Product getProductFromOrderLineItem(long orderLineItemId, long orderId) {
+        long productId = getById(orderLineItemId, orderId).getBody().getProductId();
+        return productClient.getById(productId);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.stephenmeaney.services.order.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -25,10 +26,6 @@ public class CustomerOrder {
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate orderDate;
 
-    @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonSerialize(using = LocalDateSerializer.class)
-    private LocalDate deliveryDate;
-
     @Transient
     private double totalPrice;
 
@@ -37,6 +34,7 @@ public class CustomerOrder {
     private long addressId;
 
     @OneToMany(mappedBy = "customerOrder", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = {"customerOrder"})
     private List<OrderLineItem> orderLineItemList;
 
     // ??? add getters with @JsonIgnore that hit feign client endpoints
@@ -58,14 +56,6 @@ public class CustomerOrder {
 
     public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
-    }
-
-    public LocalDate getDeliveryDate() {
-        return deliveryDate;
-    }
-
-    public void setDeliveryDate(LocalDate deliveryDate) {
-        this.deliveryDate = deliveryDate;
     }
 
     @JsonIgnore

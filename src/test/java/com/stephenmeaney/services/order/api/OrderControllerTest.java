@@ -41,7 +41,6 @@ public class OrderControllerTest {
 
         mockOrder.setOrderId(num);
         mockOrder.setOrderDate(LocalDate.parse("2018-03-03"));
-        mockOrder.setDeliveryDate(LocalDate.parse("2018-04-04"));
         mockOrder.setOrderId(num);
         mockOrder.setAddressId(num);
 

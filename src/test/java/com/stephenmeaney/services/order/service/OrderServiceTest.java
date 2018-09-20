@@ -38,7 +38,6 @@ public class OrderServiceTest {
 
         mockOrder.setOrderId(num);
         mockOrder.setOrderDate(LocalDate.parse("2018-01-01"));
-        mockOrder.setDeliveryDate(LocalDate.parse("2018-02-02"));
         mockOrder.setOrderId(num);
         mockOrder.setAddressId(num);
 
@@ -55,7 +54,6 @@ public class OrderServiceTest {
 
         assertThat(returnedOrder.getOrderId()).isEqualTo(1);
         assertThat(returnedOrder.getOrderDate()).isEqualTo(LocalDate.parse("2018-01-01"));
-        assertThat(returnedOrder.getDeliveryDate()).isEqualTo(LocalDate.parse("2018-02-02"));
         assertThat(returnedOrder.getOrderId()).isEqualTo(1);
         assertThat(returnedOrder.getAddressId()).isEqualTo(1);
     }
@@ -72,7 +70,6 @@ public class OrderServiceTest {
 
         assertThat(returnedOrderList.get(0).getOrderId()).isEqualTo(2);
         assertThat(returnedOrderList.get(0).getOrderDate()).isEqualTo(LocalDate.parse("2018-01-01"));
-        assertThat(returnedOrderList.get(0).getDeliveryDate()).isEqualTo(LocalDate.parse("2018-02-02"));
         assertThat(returnedOrderList.get(0).getOrderId()).isEqualTo(2);
         assertThat(returnedOrderList.get(0).getAddressId()).isEqualTo(2);
     }
@@ -87,7 +84,6 @@ public class OrderServiceTest {
 
         assertThat(returnedOrder.getOrderId()).isEqualTo(3);
         assertThat(returnedOrder.getOrderDate()).isEqualTo(LocalDate.parse("2018-01-01"));
-        assertThat(returnedOrder.getDeliveryDate()).isEqualTo(LocalDate.parse("2018-02-02"));
         assertThat(returnedOrder.getOrderId()).isEqualTo(3);
         assertThat(returnedOrder.getAddressId()).isEqualTo(3);
     }
@@ -104,7 +100,6 @@ public class OrderServiceTest {
 
         assertThat(updatedOrder.getOrderId()).isEqualTo(5);
         assertThat(updatedOrder.getOrderDate()).isNull();
-        assertThat(updatedOrder.getDeliveryDate()).isNull();
         assertThat(updatedOrder.getAccountId()).isEqualTo(4);
         assertThat(updatedOrder.getAddressId()).isEqualTo(4);
     }

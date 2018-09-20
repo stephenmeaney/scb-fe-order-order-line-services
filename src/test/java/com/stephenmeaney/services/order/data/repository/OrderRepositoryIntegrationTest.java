@@ -29,7 +29,6 @@ public class OrderRepositoryIntegrationTest {
         CustomerOrder mockOrder = new CustomerOrder();
 
         mockOrder.setOrderDate(LocalDate.parse("2018-01-01"));
-        mockOrder.setDeliveryDate(LocalDate.parse("2018-02-02"));
         mockOrder.setAccountId(2L);
         mockOrder.setAddressId(3L);
 
@@ -39,7 +38,6 @@ public class OrderRepositoryIntegrationTest {
 
         assertThat(foundOrder.getOrderId()).isEqualTo(1);
         assertThat(foundOrder.getOrderDate()).isEqualTo(LocalDate.parse("2018-01-01"));
-        assertThat(foundOrder.getDeliveryDate()).isEqualTo(LocalDate.parse("2018-02-02"));
         assertThat(foundOrder.getAccountId()).isEqualTo(2);
         assertThat(foundOrder.getAddressId()).isEqualTo(3);
     }
