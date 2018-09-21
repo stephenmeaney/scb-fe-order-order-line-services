@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.stephenmeaney.services.order.data.entity.CustomerOrder;
 import com.stephenmeaney.services.orderlineitem.client.domain.Product;
 import com.stephenmeaney.services.orderlineitem.client.domain.Shipment;
-import com.stephenmeaney.services.orderlineitem.service.OrderLineItemService;
 import org.hibernate.annotations.Formula;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
@@ -82,10 +80,12 @@ public class OrderLineItem {
         this.customerOrder = customerOrder;
     }
 
+    @JsonIgnore
     public Product getProduct() {
         return product;
     }
 
+    @JsonIgnore
     public void setProduct(Product product) {
         this.product = product;
     }
@@ -106,10 +106,12 @@ public class OrderLineItem {
         this.shipmentId = shipmentId;
     }
 
+    @JsonIgnore
     public Shipment getShipment() {
         return shipment;
     }
 
+    @JsonIgnore
     public void setShipment(Shipment shipment) {
         this.shipment = shipment;
     }

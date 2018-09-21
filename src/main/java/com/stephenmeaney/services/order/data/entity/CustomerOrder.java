@@ -88,10 +88,12 @@ public class CustomerOrder {
         this.shippingAddressId = shippingAddressId;
     }
 
+    @JsonIgnore
     public Address getShippingAddress() {
         return shippingAddress;
     }
 
+    @JsonIgnore
     public void setShippingAddress(Address shippingAddress) {
         this.shippingAddress = shippingAddress;
     }

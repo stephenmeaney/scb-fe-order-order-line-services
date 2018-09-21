@@ -1,7 +1,11 @@
 package com.stephenmeaney.services.order.service;
 
+import com.stephenmeaney.services.order.client.AddressClient;
 import com.stephenmeaney.services.order.data.entity.CustomerOrder;
 import com.stephenmeaney.services.order.data.repository.OrderRepository;
+import com.stephenmeaney.services.orderlineitem.client.ProductClient;
+import com.stephenmeaney.services.orderlineitem.client.ShipmentClient;
+import com.stephenmeaney.services.orderlineitem.service.OrderLineItemService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,8 +34,25 @@ public class OrderServiceTest {
     @MockBean
     private OrderRepository mockOrderRepository;
 
+    @MockBean
+    private OrderLineItemService orderLineItemService;
+
+    @MockBean
+    private AddressClient addressClient;
+
+    @MockBean
+    private ProductClient productClient;
+
+    @MockBean
+    private ShipmentClient shipmentClient;
+
     @Autowired
     private OrderService orderService;
+
+
+//    @Autowired
+//    private OrderLineItemService orderLineItemService;
+
 
     private CustomerOrder createMockOrder(long num) {
         CustomerOrder mockOrder = new CustomerOrder();
@@ -39,7 +60,7 @@ public class OrderServiceTest {
         mockOrder.setOrderId(num);
         mockOrder.setOrderDate(LocalDate.parse("2018-01-01"));
         mockOrder.setOrderId(num);
-        mockOrder.setAddressId(num);
+        mockOrder.setShippingAddressId(num);
 
         return mockOrder;
     }
@@ -55,7 +76,7 @@ public class OrderServiceTest {
         assertThat(returnedOrder.getOrderId()).isEqualTo(1);
         assertThat(returnedOrder.getOrderDate()).isEqualTo(LocalDate.parse("2018-01-01"));
         assertThat(returnedOrder.getOrderId()).isEqualTo(1);
-        assertThat(returnedOrder.getAddressId()).isEqualTo(1);
+        assertThat(returnedOrder.getShippingAddressId()).isEqualTo(1);
     }
 
     @Test
@@ -71,7 +92,7 @@ public class OrderServiceTest {
         assertThat(returnedOrderList.get(0).getOrderId()).isEqualTo(2);
         assertThat(returnedOrderList.get(0).getOrderDate()).isEqualTo(LocalDate.parse("2018-01-01"));
         assertThat(returnedOrderList.get(0).getOrderId()).isEqualTo(2);
-        assertThat(returnedOrderList.get(0).getAddressId()).isEqualTo(2);
+        assertThat(returnedOrderList.get(0).getShippingAddressId()).isEqualTo(2);
     }
 
     @Test
@@ -85,14 +106,14 @@ public class OrderServiceTest {
         assertThat(returnedOrder.getOrderId()).isEqualTo(3);
         assertThat(returnedOrder.getOrderDate()).isEqualTo(LocalDate.parse("2018-01-01"));
         assertThat(returnedOrder.getOrderId()).isEqualTo(3);
-        assertThat(returnedOrder.getAddressId()).isEqualTo(3);
+        assertThat(returnedOrder.getShippingAddressId()).isEqualTo(3);
     }
 
     @Test
     public void testUpdate() {
         CustomerOrder mockNewOrder = new CustomerOrder();
         mockNewOrder.setAccountId(4);
-        mockNewOrder.setAddressId(4);
+        mockNewOrder.setShippingAddressId(4);
 
         when(mockOrderRepository.save(any(CustomerOrder.class))).then(returnsFirstArg());
 
@@ -101,7 +122,7 @@ public class OrderServiceTest {
         assertThat(updatedOrder.getOrderId()).isEqualTo(5);
         assertThat(updatedOrder.getOrderDate()).isNull();
         assertThat(updatedOrder.getAccountId()).isEqualTo(4);
-        assertThat(updatedOrder.getAddressId()).isEqualTo(4);
+        assertThat(updatedOrder.getShippingAddressId()).isEqualTo(4);
     }
 
     @Test

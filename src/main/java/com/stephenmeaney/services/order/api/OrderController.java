@@ -23,19 +23,9 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping("")
-    public List<CustomerOrder> getAll() {
-        return orderService.getAll();
-    }
-
-//    @GetMapping("/{id}")
-//    public CustomerOrder getById(@PathVariable long id) {
-//        return orderService.getById(id);
-//    }
-
-//    @GetMapping("/{id}")
-//    public List<OrderSummary> getOrderSummary(@PathVariable long id) {
-//        return orderService.getOrderSummary(id);
+//    @GetMapping("")
+//    public List<CustomerOrder> getAll() {
+//        return orderService.getAll();
 //    }
 
 //    @GetMapping("/{accountId}")
@@ -46,6 +36,11 @@ public class OrderController {
     @GetMapping("/{accountId}")
     public List<OrderSummary> getOrderSummary(@PathVariable long accountId) {
         return orderService.getOrderSummary(accountId);
+    }
+
+    @GetMapping("")
+    public List<CustomerOrder> getAllForAccount(@RequestParam("accountId") long accountId) {
+        return orderService.getAllForAccount(accountId);
     }
 
     @GetMapping("/order/{id}")

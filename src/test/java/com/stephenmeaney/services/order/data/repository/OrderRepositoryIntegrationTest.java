@@ -30,7 +30,7 @@ public class OrderRepositoryIntegrationTest {
 
         mockOrder.setOrderDate(LocalDate.parse("2018-01-01"));
         mockOrder.setAccountId(2L);
-        mockOrder.setAddressId(3L);
+        mockOrder.setShippingAddressId(3L);
 
         entityManager.persistAndFlush(mockOrder);
 
@@ -39,6 +39,6 @@ public class OrderRepositoryIntegrationTest {
         assertThat(foundOrder.getOrderId()).isEqualTo(1);
         assertThat(foundOrder.getOrderDate()).isEqualTo(LocalDate.parse("2018-01-01"));
         assertThat(foundOrder.getAccountId()).isEqualTo(2);
-        assertThat(foundOrder.getAddressId()).isEqualTo(3);
+        assertThat(foundOrder.getShippingAddressId()).isEqualTo(3);
     }
 }

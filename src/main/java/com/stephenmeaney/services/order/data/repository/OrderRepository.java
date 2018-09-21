@@ -16,6 +16,8 @@ public interface OrderRepository extends CrudRepository<CustomerOrder, Long> {
 
     List<CustomerOrder> findAllByAccountId(long accountId);
 
+    List<CustomerOrder> findAllByAccountIdOrderByOrderDate(long accountId);
+
     List<OrderSummaryProjection> findAllProjectedByAccountId(long id);
 
 }

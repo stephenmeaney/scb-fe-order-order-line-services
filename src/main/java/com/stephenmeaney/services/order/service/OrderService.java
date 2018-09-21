@@ -49,6 +49,10 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
+    public List<CustomerOrder> getAllForAccount(long accountId) {
+        return orderRepository.findAllByAccountIdOrderByOrderDate(accountId);
+    }
+
     public CustomerOrder insert(CustomerOrder customerOrder) {
         //return orderRepository.save(customerOrder);
 
@@ -81,8 +85,7 @@ public class OrderService {
         for (CustomerOrder order : orderList) {
             OrderSummary orderSummary = new OrderSummary();
             orderSummary.setOrderId(order.getOrderId());
-            orderSummary.setAccountId(order.getAccountId());
-            orderSummary.setAddressId(order.getShippingAddressId());
+            orderSummary.setTotalPrice(getTotalPrice(order.getOrderId()));
             orderSummary.setShippingAddress(getAddressSummary(order.getShippingAddressId(), accountId));
             orderSummary.setLineItems(getOrderLineItemSummary(order.getOrderId()));
 
@@ -124,6 +127,16 @@ public class OrderService {
         shipmentSummary.setDeliveryDate(shipment.getDeliveryDate());
 
         return shipmentSummary;
+    }
+
+    private double getTotalPrice(long orderId) {
+        List<OrderLineItem> orderLineItemList = orderLineItemService.getAll(orderId).getBody();
+        double totalPrice = 0;
+
+        for (OrderLineItem orderLineItem : orderLineItemList) {
+            totalPrice += orderLineItem.getPrice() * orderLineItem.getQuantity();
+        }
+        return totalPrice;
     }
 
 }

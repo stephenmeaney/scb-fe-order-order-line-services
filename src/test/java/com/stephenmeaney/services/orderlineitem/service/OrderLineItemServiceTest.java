@@ -2,6 +2,8 @@ package com.stephenmeaney.services.orderlineitem.service;
 
 import com.stephenmeaney.services.order.data.entity.CustomerOrder;
 import com.stephenmeaney.services.order.data.repository.OrderRepository;
+import com.stephenmeaney.services.orderlineitem.client.ProductClient;
+import com.stephenmeaney.services.orderlineitem.client.ShipmentClient;
 import com.stephenmeaney.services.orderlineitem.data.entity.OrderLineItem;
 import com.stephenmeaney.services.orderlineitem.data.repository.OrderLineItemRepository;
 import org.junit.Test;
@@ -32,6 +34,12 @@ public class OrderLineItemServiceTest {
 
     @MockBean
     private OrderRepository mockOrderRepository;
+
+    @MockBean
+    private ProductClient productClient;
+
+    @MockBean
+    private ShipmentClient shipmentClient;
 
     @Autowired
     private OrderLineItemService orderLineItemService;

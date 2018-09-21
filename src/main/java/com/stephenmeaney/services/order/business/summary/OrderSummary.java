@@ -11,10 +11,6 @@ public class OrderSummary {
 
     private double totalPrice;
 
-    private long accountId;
-
-    private long addressId;
-
     private AddressSummary shippingAddress;
 
     private List<OrderLineItemSummary> lineItems;
@@ -33,22 +29,6 @@ public class OrderSummary {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
-    }
-
-    public long getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(long accountId) {
-        this.accountId = accountId;
-    }
-
-    public long getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(long addressId) {
-        this.addressId = addressId;
     }
 
     public AddressSummary getShippingAddress() {
