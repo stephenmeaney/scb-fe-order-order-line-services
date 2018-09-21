@@ -3,7 +3,9 @@ package com.stephenmeaney.services.orderlineitem.service;
 import com.stephenmeaney.services.order.data.entity.CustomerOrder;
 import com.stephenmeaney.services.order.data.repository.OrderRepository;
 import com.stephenmeaney.services.orderlineitem.client.ProductClient;
+import com.stephenmeaney.services.orderlineitem.client.ShipmentClient;
 import com.stephenmeaney.services.orderlineitem.client.domain.Product;
+import com.stephenmeaney.services.orderlineitem.client.domain.Shipment;
 import com.stephenmeaney.services.orderlineitem.data.entity.OrderLineItem;
 import com.stephenmeaney.services.orderlineitem.data.repository.OrderLineItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +21,14 @@ public class OrderLineItemService {
     private OrderLineItemRepository orderLineItemRepository;
     private OrderRepository orderRepository;
     private ProductClient productClient;
+    private ShipmentClient shipmentClient;
 
     @Autowired
-    public OrderLineItemService(OrderLineItemRepository orderLineItemRepository, OrderRepository orderRepository, ProductClient productClient) {
+    public OrderLineItemService(OrderLineItemRepository orderLineItemRepository, OrderRepository orderRepository, ProductClient productClient, ShipmentClient shipmentClient) {
         this.orderLineItemRepository = orderLineItemRepository;
         this.orderRepository = orderRepository;
         this.productClient = productClient;
+        this.shipmentClient = shipmentClient;
     }
 
     public ResponseEntity<List<OrderLineItem>> getAll(long orderId) {
@@ -45,8 +49,13 @@ public class OrderLineItemService {
 
     public ResponseEntity<OrderLineItem> insert(OrderLineItem orderLineItem, long orderId) {
         CustomerOrder order = orderRepository.findById(orderId);
-        if (order != null) {
+        Product product = productClient.getById(orderLineItem.getProductId());
+        Shipment shipment = shipmentClient.getById(orderLineItem.getShipmentId());
+
+        if (order != null && product != null && shipment != null) {
             orderLineItem.setCustomerOrder(order);
+            orderLineItem.setProduct(product);
+            orderLineItem.setShipment(shipment);
             return new ResponseEntity<>(orderLineItemRepository.save(orderLineItem), HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

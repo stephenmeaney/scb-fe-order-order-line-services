@@ -1,5 +1,8 @@
 package com.stephenmeaney.services.order.api;
 
+import com.stephenmeaney.services.order.business.projection.OrderSummaryProjection;
+import com.stephenmeaney.services.order.business.summary.OrderSummary;
+import com.stephenmeaney.services.order.client.domain.AddressSummary;
 import com.stephenmeaney.services.order.data.entity.CustomerOrder;
 import com.stephenmeaney.services.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +28,28 @@ public class OrderController {
         return orderService.getAll();
     }
 
-    @GetMapping("/{id}")
-    public CustomerOrder getById(@PathVariable long id) {
+//    @GetMapping("/{id}")
+//    public CustomerOrder getById(@PathVariable long id) {
+//        return orderService.getById(id);
+//    }
+
+//    @GetMapping("/{id}")
+//    public List<OrderSummary> getOrderSummary(@PathVariable long id) {
+//        return orderService.getOrderSummary(id);
+//    }
+
+//    @GetMapping("/{accountId}")
+//    public List<OrderSummaryProjection> getOrderSummary(@PathVariable long accountId) {
+//        return orderService.getOrderSummary(accountId);
+//    }
+
+    @GetMapping("/{accountId}")
+    public List<OrderSummary> getOrderSummary(@PathVariable long accountId) {
+        return orderService.getOrderSummary(accountId);
+    }
+
+    @GetMapping("/order/{id}")
+    public CustomerOrder getOrder(@PathVariable long id) {
         return orderService.getById(id);
     }
 
@@ -45,5 +68,4 @@ public class OrderController {
         orderService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.stephenmeaney.services.order.data.entity.CustomerOrder;
 import com.stephenmeaney.services.orderlineitem.client.domain.Product;
+import com.stephenmeaney.services.orderlineitem.client.domain.Shipment;
 import com.stephenmeaney.services.orderlineitem.service.OrderLineItemService;
 import org.hibernate.annotations.Formula;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,15 @@ public class OrderLineItem {
     @JsonIgnoreProperties(value = {"orderLineItemList"})
     private CustomerOrder customerOrder;
 
+    private long productId;
+
     @Transient
     private Product product;
 
-    private long productId;
-
     private long shipmentId;
+
+    @Transient
+    private Shipment shipment;
 
 
     public long getOrderLineItemId() {
@@ -61,7 +65,7 @@ public class OrderLineItem {
         this.price = price;
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     public double getTotalPrice() {
         return totalPrice;
     }
@@ -100,5 +104,13 @@ public class OrderLineItem {
 
     public void setShipmentId(long shipmentId) {
         this.shipmentId = shipmentId;
+    }
+
+    public Shipment getShipment() {
+        return shipment;
+    }
+
+    public void setShipment(Shipment shipment) {
+        this.shipment = shipment;
     }
 }

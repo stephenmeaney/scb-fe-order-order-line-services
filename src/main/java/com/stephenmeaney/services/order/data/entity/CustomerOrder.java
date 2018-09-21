@@ -8,6 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.stephenmeaney.services.order.client.domain.Address;
 import com.stephenmeaney.services.orderlineitem.data.entity.OrderLineItem;
 
 import javax.persistence.*;
@@ -31,15 +32,14 @@ public class CustomerOrder {
 
     private long accountId;
 
-    private long addressId;
+    private long shippingAddressId;
+
+    @Transient
+    private Address shippingAddress;
 
     @OneToMany(mappedBy = "customerOrder", cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = {"customerOrder"})
     private List<OrderLineItem> orderLineItemList;
-
-    // ??? add getters with @JsonIgnore that hit feign client endpoints
-    // using this class's 'foreign key' ids so that the projection can be populated ???
-    // eg. get Account by id, get orderLineItems by orderNumber
 
 
     public long getOrderId() {
@@ -56,6 +56,10 @@ public class CustomerOrder {
 
     public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     @JsonIgnore
@@ -76,12 +80,20 @@ public class CustomerOrder {
         this.accountId = accountId;
     }
 
-    public long getAddressId() {
-        return addressId;
+    public long getShippingAddressId() {
+        return shippingAddressId;
     }
 
-    public void setAddressId(long addressId) {
-        this.addressId = addressId;
+    public void setShippingAddressId(long shippingAddressId) {
+        this.shippingAddressId = shippingAddressId;
+    }
+
+    public Address getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(Address shippingAddress) {
+        this.shippingAddress = shippingAddress;
     }
 
     public List<OrderLineItem> getOrderLineItemList() {

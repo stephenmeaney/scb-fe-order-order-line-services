@@ -42,7 +42,7 @@ public class OrderControllerTest {
         mockOrder.setOrderId(num);
         mockOrder.setOrderDate(LocalDate.parse("2018-03-03"));
         mockOrder.setOrderId(num);
-        mockOrder.setAddressId(num);
+        mockOrder.setShippingAddressId(num);
 
         return mockOrder;
     }
