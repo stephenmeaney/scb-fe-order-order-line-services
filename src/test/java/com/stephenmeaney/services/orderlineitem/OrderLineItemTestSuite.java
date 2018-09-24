@@ -7,7 +7,7 @@ import com.stephenmeaney.services.orderlineitem.service.OrderLineItemServiceTest
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses ({OrderLineItemControllerTest.class, OrderLineItemRepositoryTest.class, OrderLineItemRepositoryIntegrationTest.class, OrderLineItemServiceTest.class})
+//@RunWith(Suite.class)
+//@Suite.SuiteClasses ({OrderLineItemControllerTest.class, OrderLineItemRepositoryTest.class, OrderLineItemRepositoryIntegrationTest.class, OrderLineItemServiceTest.class})
 public class OrderLineItemTestSuite {
 }
