@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
@@ -16,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace=AutoConfigureTestDatabase.Replace.NONE)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class OrderRepositoryIntegrationTest {
 
     @Autowired
@@ -31,10 +33,6 @@ public class OrderRepositoryIntegrationTest {
         mockOrder.setOrderDate(LocalDate.parse("2018-01-01"));
         mockOrder.setAccountId(2L);
         mockOrder.setShippingAddressId(3L);
-
-        if (orderRepository.findById(1L) != null) {
-            orderRepository.deleteById(1L);
-        }
 
         entityManager.persistAndFlush(mockOrder);
 
