@@ -39,8 +39,12 @@ public class OrderController {
     }
 
     @GetMapping("")
-    public List<CustomerOrder> getAllForAccount(@RequestParam("accountId") long accountId) {
-        return orderService.getAllForAccount(accountId);
+    public List<CustomerOrder> getAllForAccount(@RequestParam(value = "accountId", required = false) Long accountId) {
+        if (accountId == null) {
+            return orderService.getAll();
+        } else {
+            return orderService.getAllForAccount(accountId);
+        }
     }
 
     @GetMapping("/order/{id}")

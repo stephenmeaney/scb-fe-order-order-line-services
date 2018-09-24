@@ -4,6 +4,8 @@ import com.stephenmeaney.services.order.data.entity.CustomerOrder;
 import com.stephenmeaney.services.order.data.repository.OrderRepository;
 import com.stephenmeaney.services.orderlineitem.client.ProductClient;
 import com.stephenmeaney.services.orderlineitem.client.ShipmentClient;
+import com.stephenmeaney.services.orderlineitem.client.domain.Product;
+import com.stephenmeaney.services.orderlineitem.client.domain.Shipment;
 import com.stephenmeaney.services.orderlineitem.data.entity.OrderLineItem;
 import com.stephenmeaney.services.orderlineitem.data.repository.OrderLineItemRepository;
 import org.junit.Test;
@@ -36,10 +38,10 @@ public class OrderLineItemServiceTest {
     private OrderRepository mockOrderRepository;
 
     @MockBean
-    private ProductClient productClient;
+    private ProductClient mockProductClient;
 
     @MockBean
-    private ShipmentClient shipmentClient;
+    private ShipmentClient mockShipmentClient;
 
     @Autowired
     private OrderLineItemService orderLineItemService;
@@ -134,6 +136,9 @@ public class OrderLineItemServiceTest {
         OrderLineItem mockOrderLineItem = createMockOrderLineItem(3L);
 
         when(mockOrderRepository.findById(anyLong())).thenReturn(new CustomerOrder());
+        when(mockProductClient.getById(anyLong())).thenReturn(new Product());
+        when(mockShipmentClient.getById(anyLong())).thenReturn(new Shipment());
+
         when(mockOrderLineItemRepository.save(any(OrderLineItem.class))).thenReturn(mockOrderLineItem);
 
         OrderLineItem returnedOrderLineItem = orderLineItemService.insert(mockOrderLineItem, 1L).getBody();

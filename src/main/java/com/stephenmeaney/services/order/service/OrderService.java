@@ -54,13 +54,8 @@ public class OrderService {
     }
 
     public CustomerOrder insert(CustomerOrder customerOrder) {
-        //return orderRepository.save(customerOrder);
-
         Address address = addressClient.getById(customerOrder.getShippingAddressId(), customerOrder.getAccountId()).getBody();
         customerOrder.setShippingAddress(address);
-        if (address == null) {
-            System.out.println("\n\nAddress is null\n\n");
-        }
         return orderRepository.save(customerOrder);
     }
 

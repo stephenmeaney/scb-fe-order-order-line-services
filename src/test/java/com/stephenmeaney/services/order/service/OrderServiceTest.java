@@ -1,17 +1,21 @@
 package com.stephenmeaney.services.order.service;
 
 import com.stephenmeaney.services.order.client.AddressClient;
+import com.stephenmeaney.services.order.client.domain.Address;
 import com.stephenmeaney.services.order.data.entity.CustomerOrder;
 import com.stephenmeaney.services.order.data.repository.OrderRepository;
 import com.stephenmeaney.services.orderlineitem.client.ProductClient;
 import com.stephenmeaney.services.orderlineitem.client.ShipmentClient;
+import com.stephenmeaney.services.orderlineitem.client.domain.Product;
+import com.stephenmeaney.services.orderlineitem.client.domain.Shipment;
 import com.stephenmeaney.services.orderlineitem.service.OrderLineItemService;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
@@ -19,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -38,21 +41,16 @@ public class OrderServiceTest {
     private OrderLineItemService orderLineItemService;
 
     @MockBean
-    private AddressClient addressClient;
+    private AddressClient mockAddressClient;
 
     @MockBean
-    private ProductClient productClient;
+    private ProductClient mockProductClient;
 
     @MockBean
-    private ShipmentClient shipmentClient;
+    private ShipmentClient mockShipmentClient;
 
     @Autowired
     private OrderService orderService;
-
-
-//    @Autowired
-//    private OrderLineItemService orderLineItemService;
-
 
     private CustomerOrder createMockOrder(long num) {
         CustomerOrder mockOrder = new CustomerOrder();
@@ -100,6 +98,7 @@ public class OrderServiceTest {
         CustomerOrder mockOrder = createMockOrder(3L);
 
         when(mockOrderRepository.save(any(CustomerOrder.class))).thenReturn(mockOrder);
+        when(mockAddressClient.getById(anyLong(), anyLong())).thenReturn(new ResponseEntity<Address>(new Address(), HttpStatus.CREATED));
 
         CustomerOrder returnedOrder = orderService.insert(mockOrder);
 
