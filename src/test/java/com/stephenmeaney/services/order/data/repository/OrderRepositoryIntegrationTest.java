@@ -32,6 +32,10 @@ public class OrderRepositoryIntegrationTest {
         mockOrder.setAccountId(2L);
         mockOrder.setShippingAddressId(3L);
 
+        if (orderRepository.findById(1L) != null) {
+            orderRepository.deleteById(1L);
+        }
+
         entityManager.persistAndFlush(mockOrder);
 
         CustomerOrder foundOrder = orderRepository.findById(1L);

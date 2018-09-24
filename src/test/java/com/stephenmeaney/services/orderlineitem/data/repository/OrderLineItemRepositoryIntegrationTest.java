@@ -30,6 +30,10 @@ public class OrderLineItemRepositoryIntegrationTest {
         mockOrderLineItem.setProductId(4);
         mockOrderLineItem.setShipmentId(5);
 
+        if (orderLineItemRepository.findById(1L) != null) {
+            orderLineItemRepository.deleteById(1L);
+        }
+
         entityManager.persistAndFlush(mockOrderLineItem);
 
         OrderLineItem foundOrderLineItem = orderLineItemRepository.findById(1);
