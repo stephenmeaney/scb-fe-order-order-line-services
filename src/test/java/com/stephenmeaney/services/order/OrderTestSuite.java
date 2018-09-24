@@ -7,8 +7,8 @@ import com.stephenmeaney.services.order.service.OrderServiceTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-//@RunWith(Suite.class)
-//@Suite.SuiteClasses ({OrderControllerTest.class, OrderRepositoryTest.class, OrderRepositoryIntegrationTest.class, OrderServiceTest.class})
+@RunWith(Suite.class)
+@Suite.SuiteClasses ({OrderControllerTest.class, OrderRepositoryTest.class, OrderRepositoryIntegrationTest.class, OrderServiceTest.class})
 public class OrderTestSuite {
 
 }
