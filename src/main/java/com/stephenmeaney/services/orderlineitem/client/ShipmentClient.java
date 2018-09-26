@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Component
-@FeignClient("shipmentservices")
+@FeignClient(value = "shipmentservices", fallback = ShipmentClientFallbackImpl.class)
 public interface ShipmentClient {
 
     @GetMapping("/api/v1/shipments/{id}")
